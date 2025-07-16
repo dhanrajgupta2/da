@@ -1,0 +1,72 @@
+# Exp 1 : write a program non-recursive and recursive program to calculate fibonacci numbers and analyze their time and space complexity 
+
+# solution 
+
+
+# non recrusive
+
+import time
+
+def fib(n):
+    a, b = 0, 1
+    for i in range(n + 1):
+        yield a  # yield each Fibonacci number one by one
+        a, b = b, a + b
+
+# Ask user for input
+n = int(input("Enter how many Fibonacci numbers you want: "))
+
+start = time.time()
+result = list(fib(n))  # convert generator to list
+end = time.time()
+
+print(result)
+print(f"Time: {end - start:.6f}s")
+
+<=====================================================================================================================================================>
+# recursive 
+
+import time
+
+def fib(n):
+    # Base cases:
+    if n == 0:
+        return [0]
+    elif n == 1:
+        return [0, 1]
+    
+    # Recursive call to get fib sequence up to n-1
+    series = fib(n - 1)
+    
+    # Append the next Fibonacci number: sum of last two elements
+    series.append(series[-1] + series[-2])
+    
+    return series
+
+# Ask user for input
+n = int(input("Enter how many Fibonacci numbers you want: "))
+
+start = time.time()
+result = fib(n)
+end = time.time()
+
+print(result)
+print(f"Time: {end - start:.6f}s")
+
+or 
+
+import time
+
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+start = time.time()
+result = fib(10)
+end = time.time()
+
+print(result)
+print(f"Time: {end - start:.8f}s")
+
+<==========================================================================================================================================================================================================================================================================================================>
