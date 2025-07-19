@@ -121,3 +121,42 @@ def huffman_encoding(text):
 huffman_encoding("huffman")
 
 <============================================================================================================================================>
+
+# Exp 3 : Write a program to solve a fractional Knapsack problem using a greedy method.
+
+# solution
+
+def fractional_knapsack(weights, values, capacity):
+# Step 1: Calculate value-to-weight ratio and group with weights and values
+
+    ratio = [(v/w, w, v) for v, w in zip(values, weights)]
+
+# Step 2: Sort items by ratio in descending order
+
+    ratio.sort(reverse=True)
+
+    total_value = 0    # Total value in the knapsack
+
+# Step 3: Pick items one by one     r = ratio , w = weight , v = value
+
+    for r, w, v in ratio:
+        if capacity >= w:
+
+# Take the whole item
+
+            total_value += v
+            capacity -= w
+        else:
+            total_value += r * capacity
+            break
+    return total_value
+
+# Example
+weights = [10, 20, 30]
+values = [60, 100, 120]
+capacity = 50
+
+print("Max value:", fractional_knapsack(weights, values, capacity))
+
+
+<=====================================================================================================>
