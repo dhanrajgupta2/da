@@ -2,7 +2,7 @@
 bound strategy.
 
 # solution  W	= Maximum weight capacity of the knapsack , wt = List of weights of the n items (e.g., [10, 20, 30]).
-# val	List of values/profits corresponding to each item (e.g., [60, 100, 120]) , n = Number of items (i.e. len(val) or len(wt)).
+# val  = List of values/profits corresponding to each item (e.g., [60, 100, 120]) , n = Number of items (i.e. len(val) or len(wt)).
 
 def knapsack(W, wt, val, n):                                                                  
     dp = [[0 for x in range(W+1)] for x in range(n+1)]                                        
