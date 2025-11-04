@@ -46,4 +46,67 @@ def huffman_encoding(text):
     generate_codes(root)
     return codes
 
+or
+
+import heapq
+from collections import Counter
+
+# ---------------------------------------------
+# STEP 1 : Define the Node class for Huffman Tree
+# ---------------------------------------------
+class Node:
+    def __init__(self, char, freq, left=None, right=None):
+        self.char = char        # Character
+        self.freq = freq        # Frequency
+        self.left = left        # Left child
+        self.right = right      # Right child
+
+    def __lt__(self, other):     # Compare nodes by frequency
+        return self.freq < other.freq
+
+
+# ---------------------------------------------
+# STEP 2 : Count frequency and create min-heap
+# ---------------------------------------------
+def huffman_encoding(text):
+    # Count frequency of each character
+    frequency = Counter(text)
+
+    # Create a priority queue (min-heap) of nodes
+    heap = [Node(char, freq) for char, freq in frequency.items()]
+    heapq.heapify(heap)
+
+
+    # ---------------------------------------------
+    # STEP 3 : Build Huffman Tree using greedy approach
+    # ---------------------------------------------
+    while len(heap) > 1:
+        left = heapq.heappop(heap)          # smallest node
+        right = heapq.heappop(heap)         # next smallest node
+        merged = Node(None, left.freq + right.freq, left, right)
+        heapq.heappush(heap, merged)        # push merged node back
+
+
+    # ---------------------------------------------
+    # STEP 4 : Generate binary Huffman codes
+    # ---------------------------------------------
+    root = heap[0]
+    codes = {}
+
+    def generate_codes(node, code=""):
+        if node.char:
+            codes[node.char] = code          # leaf node (character)
+        else:
+            generate_codes(node.left, code + "0")  # left = 0
+            generate_codes(node.right, code + "1") # right = 1
+
+    generate_codes(root)
+    return codes
+
+
+# ---------------------------------------------
+# STEP 5 : Example execution
+# ---------------------------------------------
+print(huffman_encoding("huffman"))
+
 huffman_encoding("huffman")
